@@ -1,16 +1,11 @@
-'use strict';
-
-const line = require('@line/bot-sdk');
-const express = require('express');
-
-
-const defaultAccessToken = '***********************';
-const defaultSecret = '***********************';
+import line from '@line/bot-sdk';
+import express from 'express';
+import fetchDirections from './fetch-directions';
 
 // create LINE SDK config from env variables
 const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || defaultAccessToken,
-  channelSecret: process.env.CHANNEL_SECRET || defaultSecret,
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.CHANNEL_SECRET,
 };
 
 // create LINE SDK client
@@ -27,24 +22,26 @@ app.get('/', (req, res) => {
 // register a webhook handler with middleware
 // about the middleware, please refer to doc
 app.post('/webhook', line.middleware(config), (req, res) => {
-  Promise
-    .all(req.body.events.map(handleEvent))
-    .then((result) => res.json(result));
+  Promise.all(req.body.events.map(handleEvent)).then(result => res.json(result));
 });
 
 // event handler
-function handleEvent(event) {
+const handleEvent = async event => {
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
   // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
+  // const echo = { type: 'text', text: event.message.text };
+  const origin = '%E6%9D%B1%E4%BA%AC%E9%A7%85';
+  const destination = '%E6%89%80%E6%B2%A2%E9%A7%85';
+  const { distance, duration } = await fetchDirections(origin, destination);
+  const message = `道のり：${distance}, 時間：${duration}`;
 
   // use reply API
-  return client.replyMessage(event.replyToken, echo);
-}
+  return client.replyMessage(event.replyToken, message);
+};
 
 // listen on port
 const port = process.env.PORT || 3000;

@@ -3,9 +3,118 @@
   "version": "0.0.0",
   "description": "An example LINE bot just to echo messages",
   "main": "index.js",
-  "scripts": { "start": "node ." },
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
     "@line/bot-sdk": "^5.0.0",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-eslint": "8.0.1",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-preset-flow": "6.23.0",
+    "eslint": "4.3.0",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-config-prettier": "2.4.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jest": "21.1.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-prettier": "2.2.0",
+    "eslint-plugin-react": "7.1.0",
+    "prettier": "1.7.0"
+  },
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs",
+      "transform-async-to-generator",
+      "transform-object-rest-spread"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "printWidth": 100,
+          "singleQuote": true,
+          "trailingComma": "es5"
+        }
+      ],
+      "global-require": "off",
+      "import/no-dynamic-require": "off",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "no-param-reassign": [
+        "error",
+        {
+          "props": true,
+          "ignorePropertyModificationsFor": [
+            "req",
+            "alexaHandler"
+          ]
+        }
+      ],
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allowAfterThis": false
+        }
+      ],
+      "no-unused-vars": [
+        "error",
+        {
+          "vars": "local",
+          "args": "after-used",
+          "ignoreRestSiblings": true,
+          "argsIgnorePattern": "[iI]gnored"
+        }
+      ],
+      "new-cap": [
+        "error",
+        {
+          "newIsCap": true,
+          "newIsCapExceptions": [],
+          "capIsNew": false,
+          "capIsNewExceptions": [
+            "Immutable.Map",
+            "Immutable.Set",
+            "Immutable.List",
+            "express.Router"
+          ]
+        }
+      ],
+      "camelcase": "off",
+      "jsx-a11y/no-static-element-interactions": "warn",
+      "jsx-a11y/href-no-hash": "off",
+      "no-undefined": "error",
+      "object-shorthand": [
+        "error",
+        "always",
+        {
+          "avoidQuotes": false
+        }
+      ]
+    }
   }
 }
