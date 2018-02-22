@@ -10,23 +10,20 @@
     "postinstall": "run-s clean build"
   },
   "dependencies": {
-    "@line/bot-sdk": "^5.0.0",
+    "@line/bot-sdk": "^5.0.1",
     "express": "^4.15.2",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
-    "babel-eslint": "8.0.1",
     "babel-plugin-transform-async-to-generator": "6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
-    "babel-preset-flow": "6.23.0",
     "eslint": "4.3.0",
     "eslint-config-airbnb": "15.1.0",
     "eslint-config-prettier": "2.4.0",
     "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-jest": "21.1.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-prettier": "2.2.0",
     "eslint-plugin-react": "7.1.0",
