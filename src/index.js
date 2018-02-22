@@ -27,15 +27,15 @@ const handleEvent = async event => {
   }
 
   // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
-  // const origin = '%E6%9D%B1%E4%BA%AC%E9%A7%85';
-  // const destination = '%E6%89%80%E6%B2%A2%E9%A7%85';
-  // const { distance, duration } = await fetchDirections(origin, destination);
-  // const message = `道のり：${distance}, 時間：${duration}`;
+  // const echo = { type: 'text', text: event.message.text };
+  const origin = '%E6%9D%B1%E4%BA%AC%E9%A7%85';
+  const destination = '%E6%89%80%E6%B2%A2%E9%A7%85';
+  const { distance, duration } = await fetchDirections(origin, destination);
+  const message = `道のり：${distance}, 時間：${duration}`;
 
   // use reply API
-  return client.replyMessage(event.replyToken, echo);
-  // return client.replyMessage(event.replyToken, { type: 'text', text: message });
+  // return client.replyMessage(event.replyToken, echo);
+  return client.replyMessage(event.replyToken, { type: 'text', text: message });
 };
 
 // register a webhook handler with middleware
