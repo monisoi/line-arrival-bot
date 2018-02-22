@@ -19,12 +19,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// register a webhook handler with middleware
-// about the middleware, please refer to doc
-app.post('/webhook', line.middleware(config), (req, res) => {
-  Promise.all(req.body.events.map(handleEvent)).then(result => res.json(result));
-});
-
 // event handler
 const handleEvent = async event => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -41,8 +35,14 @@ const handleEvent = async event => {
 
   // use reply API
   return client.replyMessage(event.replyToken, echo);
-  // return client.replyMessage(event.replyToken, message);
+  // return client.replyMessage(event.replyToken, { type: 'text', text: message });
 };
+
+// register a webhook handler with middleware
+// about the middleware, please refer to doc
+app.post('/webhook', line.middleware(config), (req, res) => {
+  Promise.all(req.body.events.map(handleEvent)).then(result => res.json(result));
+});
 
 // listen on port
 const port = process.env.PORT || 3000;

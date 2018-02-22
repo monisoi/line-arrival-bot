@@ -1,10 +1,13 @@
 {
-  "name": "echo-bot",
+  "name": "arrival-bot",
   "version": "0.0.0",
-  "description": "An example LINE bot just to echo messages",
-  "main": "index.js",
+  "description": "",
+  "main": "build/index.js",
   "scripts": {
-    "start": "node ."
+    "start": "node index",
+    "clean": "rm -rf build",
+    "build": "babel src -d build/src --ignore *.spec.js",
+    "postinstall": "build"
   },
   "dependencies": {
     "@line/bot-sdk": "^5.0.0",
