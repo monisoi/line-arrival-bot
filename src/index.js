@@ -1,4 +1,4 @@
-import line from '@line/bot-sdk';
+import { Client as LineBotClient } from '@line/bot-sdk';
 import express from 'express';
 import fetchDirections from './fetch-directions';
 
@@ -9,7 +9,7 @@ const config = {
 };
 
 // create LINE SDK client
-const client = new line.Client(config);
+const client = new LineBotClient(config);
 
 // create Express app
 // about Express itself: https://expressjs.com/
