@@ -7,7 +7,7 @@
     "start": "node index",
     "clean": "rm -rf build",
     "build": "babel src -d build/src --ignore *.spec.js",
-    "postinstall": "build"
+    "postinstall": "run-s clean build"
   },
   "dependencies": {
     "@line/bot-sdk": "^5.0.0",
@@ -30,7 +30,8 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-prettier": "2.2.0",
     "eslint-plugin-react": "7.1.0",
-    "prettier": "1.7.0"
+    "prettier": "1.7.0",
+    "npm-run-all": "4.0.2"
   },
   "babel": {
     "plugins": [
