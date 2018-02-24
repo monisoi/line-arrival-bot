@@ -3,7 +3,7 @@ import fetchDirections from './fetch-directions';
 import fetchGeolocation from './fetch-geolocation';
 
 const createMessage = async () => {
-  const { lat, lng } = fetchGeolocation();
+  const { lat, lng } = await fetchGeolocation();
   const origin = `${lat}, ${lng}`;
   const destination = '東京駅';
   const destinationEncode = encodeURIComponent(destination);
