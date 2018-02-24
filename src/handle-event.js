@@ -2,9 +2,11 @@ import { lineBotClient } from './line-bot';
 import fetchDirections from './fetch-directions';
 
 const createMessage = async () => {
-  const origin = '%E6%9D%B1%E4%BA%AC%E9%A7%85';
-  const destination = '%E6%89%80%E6%B2%A2%E9%A7%85';
-  const { distance, duration } = await fetchDirections(origin, destination);
+  const origin = '東京駅';
+  const destination = '池袋駅';
+  const originEncode = encodeURIComponent(origin);
+  const destinationEncode = encodeURIComponent(destination);
+  const { distance, duration } = await fetchDirections(originEncode, destinationEncode);
   const message = `道のり：${distance}, 時間：${duration}`;
   return message;
 };
