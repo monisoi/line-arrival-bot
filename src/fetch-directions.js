@@ -9,7 +9,7 @@ export default async (origin, destination) => {
     const duration = body.routes[0].legs[0].duration.text;
     return { distance, duration };
   } catch (e) {
-    console.log(`error: ${e}`);
+    console.log(`google directions api error: ${e}`);
     return null;
   }
 };
