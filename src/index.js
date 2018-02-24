@@ -1,12 +1,16 @@
 import express from 'express';
 import { LineBotMiddleware } from './line-bot';
-import handleEvent from './handle-event';
+import { handleEvent } from './handle-event';
 
 const app = express();
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+// const handleEvent = () => {
+
+// }
 
 // register a webhook handler with middleware
 // about the middleware, please refer to doc
