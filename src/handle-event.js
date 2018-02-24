@@ -1,12 +1,13 @@
 import { lineBotClient } from './line-bot';
 import fetchDirections from './fetch-directions';
+import fetchGeolocation from './fetch-geolocation';
 
 const createMessage = async () => {
-  const origin = '東京駅';
-  const destination = '池袋駅';
-  const originEncode = encodeURIComponent(origin);
+  const { lat, lng } = fetchGeolocation();
+  const origin = `${lat}, ${lng}`;
+  const destination = '東京駅';
   const destinationEncode = encodeURIComponent(destination);
-  const { distance, duration } = await fetchDirections(originEncode, destinationEncode);
+  const { distance, duration } = await fetchDirections(origin, destinationEncode);
   const message = `道のり：${distance}, 時間：${duration}`;
   return message;
 };
