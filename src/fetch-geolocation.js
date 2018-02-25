@@ -7,10 +7,10 @@ export default async () => {
     method: 'POST',
     uri: `https://www.googleapis.com/geolocation/v1/geolocate?key=${key}`,
     json: true,
-    headers: {
-      Authorization: 'application/json',
-    },
   };
+    // headers: {
+    //   Authorization: 'application/json',
+    // },
   try {
     const body = await request(options);
     const { location } = body;
