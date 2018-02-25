@@ -1,6 +1,7 @@
 import request from 'request-promise-native';
 
 export default async (origin, destination) => {
+  console.log(`origin: ${origin}, destination: ${destination}`);
   const key = process.env.DIRECTIONS_API_KEY;
   const uri = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${key}`;
   try {

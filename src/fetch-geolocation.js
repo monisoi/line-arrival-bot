@@ -14,6 +14,7 @@ export default async () => {
   try {
     const body = await request(options);
     const { location } = body;
+    console.log(`location: ${JSON.stringify(location)}`);
     return location;
   } catch (e) {
     console.log(`google maps geolocation api error: ${e}`);
