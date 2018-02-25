@@ -8,7 +8,6 @@ export default async () => {
     json: true,
     body: {
       homeMobileCountryCode: 440,
-      homeMobileNetworkCode: 10,
       radioType: 'lte',
       considerIp: 'true',
     },
