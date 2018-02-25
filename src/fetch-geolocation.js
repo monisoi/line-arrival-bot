@@ -6,6 +6,12 @@ export default async () => {
     method: 'POST',
     uri: `https://www.googleapis.com/geolocation/v1/geolocate?key=${key}`,
     json: true,
+    body: {
+      homeMobileCountryCode: 310,
+      homeMobileNetworkCode: 410,
+      radioType: 'lte',
+      considerIp: 'true',
+    },
   };
   try {
     const body = await request(options);
