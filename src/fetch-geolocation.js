@@ -1,7 +1,8 @@
 import request from 'request-promise-native';
+import { GEOLOCATION_API_KEY } from './config';
 
 export default async () => {
-  const key = process.env.GEOLOCATION_API_KEY;
+  const key = GEOLOCATION_API_KEY;
   const options = {
     method: 'POST',
     uri: `https://www.googleapis.com/geolocation/v1/geolocate?key=${key}`,

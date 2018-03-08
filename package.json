@@ -4,14 +4,15 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "start": "node index",
+    "test": "npm run eslint",
     "clean": "rm -rf build",
-    "build": "babel src -d build/src --ignore *.spec.js",
-    "postinstall": "run-s clean build"
+    "build": "babel src -d build --ignore *.spec.js",
+    "activate": "gcloud config configurations activate line-arrival-bot",
+    "deploy": "gcloud beta functions deploy ${NAME} --entry-point default --stage-bucket ${BUCKET} --trigger-http",
+    "deploy-exec": "BUCKET=arrival-cloud-functions NAME=line-arrival-bot run-s activate clean build deploy"
   },
   "dependencies": {
     "@line/bot-sdk": "^5.0.1",
-    "express": "^4.15.2",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   },
@@ -71,8 +72,7 @@
         {
           "props": true,
           "ignorePropertyModificationsFor": [
-            "req",
-            "alexaHandler"
+            "req"
           ]
         }
       ],
