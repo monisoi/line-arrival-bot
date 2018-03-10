@@ -1,4 +1,4 @@
-import { lineBotClient } from './line-bot';
+import { isTextMessage, replyTextMessage } from './line-bot';
 import fetchDirections from './fetch-directions';
 
 const createMessage = async () => {
@@ -14,11 +14,9 @@ const createMessage = async () => {
 };
 
 export default async event => {
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    // ignore non-text-message event
-    return Promise.resolve(null);
+  if (isTextMessage) {
+    const message = await createMessage();
+    return replyTextMessage(event.replyToken, message);
   }
-  const message = await createMessage();
-  // use reply API
-  return lineBotClient.replyMessage(event.replyToken, { type: 'text', text: message });
+  return Promise.resolve(null);
 };
