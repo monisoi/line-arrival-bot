@@ -1,8 +1,8 @@
-import { isTextMessage, replyTextMessage } from './line-bot';
+import { isTextMessage, isLocationMessage, replyTextMessage } from './line-bot';
 import fetchDirections from './fetch-directions';
 
-const createMessage = async () => {
-  const origin = '池袋';
+const createMessage = async (location = '') => {
+  const origin = location || '池袋';
   const destination = '東京駅';
   const originEncode = encodeURIComponent(origin);
   const destinationEncode = encodeURIComponent(destination);
@@ -14,8 +14,16 @@ const createMessage = async () => {
 };
 
 export default async event => {
-  if (isTextMessage) {
+  if (isTextMessage(event)) {
+    console.log('text content: %o', event.message);
     const message = await createMessage();
+    return replyTextMessage(event.replyToken, message);
+  }
+  if (isLocationMessage(event)) {
+    console.log('location content: %o', event.message);
+    const { latitude, longitude } = event.message;
+    const location = `${latitude} ${longitude}`;
+    const message = await createMessage(location);
     return replyTextMessage(event.replyToken, message);
   }
   return Promise.resolve(null);
