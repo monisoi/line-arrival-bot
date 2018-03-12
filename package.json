@@ -12,6 +12,7 @@
     "deploy-exec": "BUCKET=arrival-cloud-functions NAME=line-arrival-bot run-s activate clean build deploy"
   },
   "dependencies": {
+    "@google-cloud/datastore": "^1.3.5",
     "@line/bot-sdk": "^5.0.1",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"

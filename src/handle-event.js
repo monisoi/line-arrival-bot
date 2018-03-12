@@ -1,12 +1,13 @@
 import { isTextMessage, isLocationMessage, replyTextMessage } from './line-bot';
 import fetchDirections from './fetch-directions';
+import fetchLocations from './fetch-locations';
 
-const createMessage = async (location = '') => {
-  const origin = location || '池袋';
-  const destination = '東京駅';
-  const originEncode = encodeURIComponent(origin);
-  const destinationEncode = encodeURIComponent(destination);
-  const { distance, duration } = (await fetchDirections(originEncode, destinationEncode)) || {};
+const createMessage = async (lineId, currentPoint = '') => {
+  const locations = await fetchLocations(lineId);
+  const { origin: registeredOrigin, destination: registeredDestination } = locations[0][0] || {};
+  const origin = currentPoint || encodeURIComponent(registeredOrigin);
+  const destination = encodeURIComponent(registeredDestination);
+  const { distance, duration } = (await fetchDirections(origin, destination)) || {};
   if (!distance || !duration) return '経路を特定できませんでした。';
   const message = `道のり：${distance}, 時間：${duration}`;
   console.log(`message ${message}`);
@@ -14,16 +15,18 @@ const createMessage = async (location = '') => {
 };
 
 export default async event => {
+  const lineId = event.source.userId;
+  console.log(`lineId: ${lineId}`);
   if (isTextMessage(event)) {
     console.log('text content: %o', event.message);
-    const message = await createMessage();
+    const message = await createMessage(lineId);
     return replyTextMessage(event.replyToken, message);
   }
   if (isLocationMessage(event)) {
     console.log('location content: %o', event.message);
     const { latitude, longitude } = event.message;
-    const location = `${latitude} ${longitude}`;
-    const message = await createMessage(location);
+    const currentPoint = `${latitude} ${longitude}`;
+    const message = await createMessage(lineId, currentPoint);
     return replyTextMessage(event.replyToken, message);
   }
   return Promise.resolve(null);
